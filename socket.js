@@ -1,5 +1,7 @@
 const option = document.getElementById("coinPair");
-const orderContainer = document.getElementById("orderContainer");
+const orderTableBody = document
+  .getElementById("orderContainer")
+  .getElementsByTagName("tbody")[0];
 let coinpair = option.value;
 
 const maxRowCount = 20; // 화면에 나타낼 최대 체결 row개수
@@ -15,10 +17,11 @@ option.addEventListener("change", () => {
     const json = JSON.parse(msg.data);
     rowCount += 1;
     if (rowCount >= maxRowCount) {
-      orderContainer.deleteRow(-1);
+      orderTableBody.deleteRow(-1);
     }
-    const newRow = orderContainer.insertRow(0);
-    newRow.insertCell(0).innerText = json.p;
+    const newRow = orderTableBody.insertRow(0);
+    newRow.insertCell(0).innerText = fixFloat(json.p);
+    newRow.insertCell(1).innerText = fixFloat(json.q);
   };
 });
 
@@ -29,8 +32,14 @@ ws.onmessage = (msg) => {
   const json = JSON.parse(msg.data);
   rowCount += 1;
   if (rowCount >= maxRowCount) {
-    orderContainer.deleteRow(-1);
+    orderTableBody.deleteRow(-1);
   }
-  const newRow = orderContainer.insertRow(0);
-  newRow.insertCell(0).innerText = json.p;
+  const newRow = orderTableBody.insertRow(0);
+  newRow.insertCell(0).innerText = fixFloat(json.p);
+  newRow.insertCell(1).innerText = fixFloat(json.q, 4);
 };
+
+function fixFloat(num, fix = 2) {
+  num = Number(num);
+  return String(num.toFixed(fix));
+}

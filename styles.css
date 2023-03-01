@@ -1,7 +1,7 @@
 body {
   background-color: lightskyblue;
 }
-
-#orderContainer {
-  margin: 10px;
+/* TODO: 체결테이블 셀 간격 */
+table {
+  border-spacing: 32px;
 }
