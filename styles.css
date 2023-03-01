@@ -1,3 +1,7 @@
 body {
   background-color: lightskyblue;
 }
+
+#orderContainer {
+  margin: 10px;
+}
