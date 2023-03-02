@@ -1,11 +1,10 @@
-const option = document.getElementById("coinPair");
-const orderTableBody = document
-  .getElementById("orderContainer")
-  .getElementsByTagName("tbody")[0];
+const option = <HTMLSelectElement>document.getElementById("coinPair");
+const orderTable = <HTMLTableElement>document.getElementById("orderContainer");
+const orderTableBody = orderTable.getElementsByTagName("tbody")[0];
 let coinpair = option.value;
 
 const maxRowCount = 20; // 화면에 나타낼 최대 체결 row개수
-let rowCount = 0; // 체결 row개수
+let rowCount = 0; // 현재 체결 row개수
 
 option.addEventListener("change", () => {
   coinpair = option.value;
@@ -21,7 +20,7 @@ option.addEventListener("change", () => {
     }
     const newRow = orderTableBody.insertRow(0);
     newRow.insertCell(0).innerText = fixFloat(json.p);
-    newRow.insertCell(1).innerText = fixFloat(json.q);
+    newRow.insertCell(1).innerText = fixFloat(json.q, 4);
   };
 });
 
@@ -39,7 +38,7 @@ ws.onmessage = (msg) => {
   newRow.insertCell(1).innerText = fixFloat(json.q, 4);
 };
 
-function fixFloat(num, fix = 2) {
+function fixFloat(num: number, fix = 2) {
   num = Number(num);
   return String(num.toFixed(fix));
 }
