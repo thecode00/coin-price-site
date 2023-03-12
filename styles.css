@@ -1,0 +1,10 @@
+body {
+  background-color: lightskyblue;
+}
+
+/* TODO: 체결테이블 셀 간격 */
+table {
+  width: 160px;
+  border-spacing: 64px;
+  table-layout: fixed;
+}
